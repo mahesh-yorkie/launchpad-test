@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens — aligned with Figma (frame + Sec card) + brand from exports */
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 220 20% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 14%;
+
+    --panel: 205 20% 95%;
+
+    --primary: 185 65% 43%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 16% 96%;
+    --secondary-foreground: 220 20% 20%;
+
+    --muted: 210 16% 96%;
+    --muted-foreground: 215 10% 45%;
+
+    --accent: 185 30% 96%;
+    --accent-foreground: 185 65% 30%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 70% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 214 16% 88%;
+    --input: 214 16% 88%;
+    --ring: 185 65% 43%;
+
+    /* Auth (New Password) */
+    --auth-sidebar-foreground: 0 0% 100%;
+    --auth-footer-foreground: 0 0% 100%;
+    /* Footer text uses ~85% white on the hero image; token shares sidebar fg */
+
+    /* Sec card: y 3, blur 10, #111822 @ 15% (Figma node 2281:170) */
+    --card-shadow: 0 3px 10px 0 rgba(15, 24, 39, 0.15);
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  }
+}

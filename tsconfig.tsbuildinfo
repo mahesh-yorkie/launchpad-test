@@ -1,0 +1,1 @@
+{"root":["./app/src/app.tsx","./app/src/main.tsx","./app/src/vite-env.d.ts","./app/src/components/common/authsplitlayout.tsx","./app/src/components/ui/button.tsx","./app/src/components/ui/card.tsx","./app/src/components/ui/input.tsx","./app/src/components/ui/label.tsx","./app/src/lib/utils.ts","./app/src/pages/newpasswordpage.tsx"],"version":"5.9.3"}

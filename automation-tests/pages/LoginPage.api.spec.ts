@@ -3,6 +3,12 @@ import { loginData } from "../fixtures/mock-data/login.data";
 
 const ROUTE = "/login";
 
+async function fillValid(page: import("@playwright/test").Page) {
+  const v = loginData.valid;
+  await page.getByTestId("input-email").fill(v.email);
+  await page.getByTestId("input-password").fill(v.password);
+}
+
 test.describe("Login — API", () => {
   test("201 returns success state", async ({ page }) => {
     await page.route("**/api/auth/login", (route) =>
@@ -12,9 +18,7 @@ test.describe("Login — API", () => {
       }),
     );
     await page.goto(ROUTE);
-    const v = loginData.valid;
-    await page.getByTestId("input-password").fill(v.password);
-    await page.getByTestId("input-confirm").fill(v.confirmPassword);
+    await fillValid(page);
     await page.getByTestId("auth-submit").click();
     await expect(page.getByTestId("auth-success")).toBeVisible();
   });
@@ -24,9 +28,7 @@ test.describe("Login — API", () => {
       route.fulfill({ status: 500, body: "" }),
     );
     await page.goto(ROUTE);
-    const v = loginData.valid;
-    await page.getByTestId("input-password").fill(v.password);
-    await page.getByTestId("input-confirm").fill(v.confirmPassword);
+    await fillValid(page);
     await page.getByTestId("auth-submit").click();
     await expect(page.getByTestId("auth-error")).toBeVisible();
   });
@@ -40,9 +42,7 @@ test.describe("Login — API", () => {
       }),
     );
     await page.goto(ROUTE);
-    const v = loginData.valid;
-    await page.getByTestId("input-password").fill(v.password);
-    await page.getByTestId("input-confirm").fill(v.confirmPassword);
+    await fillValid(page);
     await page.getByTestId("auth-submit").click();
     await expect(page.getByTestId("auth-error")).toBeVisible();
     await expect(page.getByTestId("auth-success")).toHaveCount(0);
@@ -51,9 +51,7 @@ test.describe("Login — API", () => {
   test("network failure shows error", async ({ page }) => {
     await page.route("**/api/auth/login", (route) => route.abort("failed"));
     await page.goto(ROUTE);
-    const v = loginData.valid;
-    await page.getByTestId("input-password").fill(v.password);
-    await page.getByTestId("input-confirm").fill(v.confirmPassword);
+    await fillValid(page);
     await page.getByTestId("auth-submit").click();
     await expect(page.getByTestId("auth-error")).toBeVisible();
   });
@@ -63,9 +61,7 @@ test.describe("Login — API", () => {
       route.fulfill({ status: 400, contentType: "text/plain", body: "nope" }),
     );
     await page.goto(ROUTE);
-    const v = loginData.valid;
-    await page.getByTestId("input-password").fill(v.password);
-    await page.getByTestId("input-confirm").fill(v.confirmPassword);
+    await fillValid(page);
     await page.getByTestId("auth-submit").click();
     await expect(page.getByTestId("auth-error")).toBeVisible();
   });

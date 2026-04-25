@@ -14,18 +14,18 @@ test.describe("Login — Accessibility", () => {
     expect(await page.getByRole("heading", { level: 1 }).count()).toBe(1);
   });
 
-  test("primary inputs are labeled", async ({ page }) => {
-    await expect(page.getByLabel(/Password/i).first()).toBeVisible();
-    await expect(page.getByLabel(/Confirm New Password/i)).toBeVisible();
+  test("email and password have labels", async ({ page }) => {
+    await expect(page.getByLabel(/Email/i)).toBeVisible();
+    await expect(page.getByLabel(/^Password$/i)).toBeVisible();
   });
 
-  test("toggle for confirm has accessible name", async ({ page }) => {
-    const btn = page.getByTestId("toggle-confirm-visibility");
+  test("password toggle has accessible name", async ({ page }) => {
+    const btn = page.getByTestId("toggle-password-visibility");
     const name = await btn.getAttribute("aria-label");
     expect(name).toBeTruthy();
   });
 
-  test("images have alt or decorative purpose", async ({ page }) => {
+  test("images have alt or decorative role", async ({ page }) => {
     const images = page.locator("img");
     const c = await images.count();
     for (let i = 0; i < c; i++) {

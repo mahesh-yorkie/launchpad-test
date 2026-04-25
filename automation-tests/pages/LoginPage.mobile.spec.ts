@@ -28,12 +28,12 @@ for (const viewport of MOBILE_VIEWPORTS) {
 
     test("form fields in viewport", async ({ page }) => {
       await page.goto(ROUTE);
-      const pwd = page.getByTestId("input-password");
-      await pwd.click();
-      await expect(pwd).toBeInViewport();
+      const email = page.getByTestId("input-email");
+      await email.click();
+      await expect(email).toBeInViewport();
     });
 
-    test("submit tap target height", async ({ page }) => {
+    test("submit button height", async ({ page }) => {
       await page.goto(ROUTE);
       const btn = page.getByTestId("auth-submit");
       const box = await btn.boundingBox();
@@ -52,8 +52,8 @@ test.describe("Login — Mobile: iPhone 14 (submit happy path)", () => {
     );
     await page.goto(ROUTE);
     const v = loginData.valid;
+    await page.getByTestId("input-email").fill(v.email);
     await page.getByTestId("input-password").fill(v.password);
-    await page.getByTestId("input-confirm").fill(v.confirmPassword);
     await page.getByTestId("auth-submit").click();
     await expect(page.getByTestId("auth-success")).toBeVisible();
   });

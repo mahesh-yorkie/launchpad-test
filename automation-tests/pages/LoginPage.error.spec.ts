@@ -9,21 +9,19 @@ test.describe("Login — Error", () => {
       route.fulfill({
         status: 422,
         contentType: "application/json",
-        body: JSON.stringify({ message: "Weak password" }),
+        body: JSON.stringify({ message: "Invalid credentials" }),
       }),
     );
     await page.goto(ROUTE);
     const v = loginData.valid;
+    await page.getByTestId("input-email").fill(v.email);
     await page.getByTestId("input-password").fill(v.password);
-    await page.getByTestId("input-confirm").fill(v.confirmPassword);
     await page.getByTestId("auth-submit").click();
     await expect(page.getByTestId("auth-error")).toBeVisible();
-    await expect(page.getByText("Weak password")).toBeVisible();
+    await expect(page.getByText("Invalid credentials")).toBeVisible();
   });
 
-  test("correcting a weak password attempt clears when valid response returns", async ({
-    page,
-  }) => {
+  test("retry with success clears error", async ({ page }) => {
     let failOnce = true;
     await page.route("**/api/auth/login", (route) => {
       if (failOnce) {
@@ -34,8 +32,8 @@ test.describe("Login — Error", () => {
     });
     await page.goto(ROUTE);
     const v = loginData.valid;
+    await page.getByTestId("input-email").fill(v.email);
     await page.getByTestId("input-password").fill(v.password);
-    await page.getByTestId("input-confirm").fill(v.confirmPassword);
     await page.getByTestId("auth-submit").click();
     await expect(page.getByTestId("auth-error")).toBeVisible();
     await page.getByTestId("auth-submit").click();

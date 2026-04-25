@@ -3,7 +3,7 @@ import { loginData } from "../fixtures/mock-data/login.data";
 
 const ROUTE = "/login";
 
-test.describe("Login (Set password) — Smoke", () => {
+test.describe("Login — Smoke", () => {
   test.beforeEach(async ({ page }) => {
     await page.route("**/api/auth/login", (route) =>
       route.fulfill({
@@ -37,7 +37,7 @@ test.describe("Login (Set password) — Smoke", () => {
 
   test("primary h1 in card is visible", async ({ page }) => {
     await expect(
-      page.getByRole("heading", { name: /set your new password/i, level: 1 }),
+      page.getByRole("heading", { name: /login/i, level: 1 }),
     ).toBeVisible();
   });
 
@@ -48,9 +48,7 @@ test.describe("Login (Set password) — Smoke", () => {
   });
 
   test("raster/vector images in layout resolve", async ({ page }) => {
-    const assets = page.locator(
-      "img, svg",
-    );
+    const assets = page.locator("img, svg");
     const count = await assets.count();
     for (let i = 0; i < count; i++) {
       const box = await assets.nth(i).evaluate((el) => {

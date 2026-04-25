@@ -1,4 +1,6 @@
 import { test, expect } from "@playwright/test";
+import { loginData } from "../fixtures/mock-data/login.data";
+
 const ROUTE = "/login";
 
 test.describe("Login — Edge", () => {
@@ -14,27 +16,20 @@ test.describe("Login — Edge", () => {
     expect((box as { width: number }).width).toBeLessThanOrEqual(1440);
   });
 
-  test("special character password still validates", async ({ page }) => {
-    await page.route("**/api/auth/login", (route) =>
-      route.fulfill({ status: 201, body: JSON.stringify({ ok: true }) }),
-    );
+  test("forgot link is present and focusable", async ({ page }) => {
     await page.goto(ROUTE);
-    const pwd = "Aa1!@#$%";
-    await page.getByTestId("input-password").fill(pwd);
-    await page.getByTestId("input-confirm").fill(pwd);
-    await page.getByTestId("auth-submit").click();
-    await expect(page.getByTestId("auth-success")).toBeVisible();
+    const link = page.getByTestId("link-forgot-password");
+    await expect(link).toBeVisible();
+    await link.focus();
   });
 
-  test("filling and clearing confirm toggles without crash", async ({
-    page,
-  }) => {
-    await page.route("**/api/auth/login", (route) =>
-      route.fulfill({ status: 201, body: JSON.stringify({ ok: true }) }),
-    );
+  test("password visibility toggle", async ({ page }) => {
     await page.goto(ROUTE);
-    await page.getByTestId("input-confirm").fill("x");
-    await page.getByTestId("input-confirm").fill("");
-    await expect(page.getByTestId("login-frame")).toBeVisible();
+    const toggle = page.getByTestId("toggle-password-visibility");
+    await toggle.click();
+    await expect(page.getByTestId("input-password")).toHaveAttribute(
+      "type",
+      "text",
+    );
   });
 });

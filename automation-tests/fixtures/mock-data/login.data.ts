@@ -1,20 +1,20 @@
 export const loginData = {
   valid: {
-    password: "Abcdef1!",
-    confirmPassword: "Abcdef1!",
+    email: "john.doe@testmail.com",
+    password: "Test@1234!",
   },
   invalid: {
-    tooShort: "Abc1!",
-    notMatching: { password: "Abcdef1!", confirmPassword: "Abcdef2!" },
+    email: "not-an-email",
+    password: "x",
   },
   edge: {
-    longName: "Aa1!".padEnd(500, "a"),
-    unicode: "Abcdeñ1!ß",
+    longName: "A".repeat(500),
+    unicodeEmail: "héllo@wörld.example",
     whitespaceOnly: "    ",
     xssLike: "<script>alert(1)</script>",
   },
   api: {
-    successBody: { success: true },
+    successBody: { success: true, token: "test-token" },
     errorMessage: "Request failed",
   },
 } as const;

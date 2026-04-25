@@ -24,19 +24,16 @@ test.describe("Login — UI", () => {
     ).toBeVisible();
   });
 
-  test("submit button and fields render", async ({ page }) => {
+  test("submit, email, password, and forgot link render", async ({ page }) => {
     await expect(page.getByTestId("auth-submit")).toBeVisible();
+    await expect(page.getByTestId("input-email")).toBeVisible();
     await expect(page.getByTestId("input-password")).toBeVisible();
-    await expect(page.getByTestId("input-confirm")).toBeVisible();
+    await expect(page.getByTestId("link-forgot-password")).toBeVisible();
   });
 
-  test("return link is visible", async ({ page }) => {
+  test("subtitle is visible", async ({ page }) => {
     await expect(
-      page.getByRole("link", { name: /return to the login screen/i }),
+      page.getByText(/login to access your account/i),
     ).toBeVisible();
-  });
-
-  test("password rules list is visible", async ({ page }) => {
-    await expect(page.getByTestId("password-rules")).toBeVisible();
   });
 });

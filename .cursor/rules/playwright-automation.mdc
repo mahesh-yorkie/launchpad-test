@@ -10,7 +10,7 @@ globs:
   - "src/**/*.svelte"
   - "src/**/*.html"
   - "automation-tests/**/*.ts"
-alwaysApply: true
+alwaysApply: false
 ---
 
 # UNIVERSAL PLAYWRIGHT FULL-COVERAGE RULE

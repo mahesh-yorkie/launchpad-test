@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /**
- * Design tokens: Admin / Current brand (Figma: Login 2281-250, Mockups)
+ * Design tokens: Admin / Current brand (Figma: Login 2281-250, Forgot 2281-208, Mockups)
  * All colors, radii, and key surfaces are expressed as CSS variables only.
  */
 :root {

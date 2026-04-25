@@ -32,4 +32,10 @@ test.describe("Login — Edge", () => {
       "text",
     );
   });
+
+  test("forgot link navigates to forgot-password", async ({ page }) => {
+    await page.goto(ROUTE);
+    await page.getByTestId("link-forgot-password").click();
+    await expect(page).toHaveURL(/\/forgot-password$/);
+  });
 });

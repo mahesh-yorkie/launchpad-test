@@ -1,0 +1,64 @@
+import { test, expect } from "@playwright/test";
+import { forgotPasswordData } from "../fixtures/mock-data/forgot-password.data";
+
+const ROUTE = "/forgot-password";
+
+test.describe("Forgot password — Smoke", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.route("**/api/auth/forgot-password", (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(forgotPasswordData.api.successBody),
+      }),
+    );
+    await page.goto(ROUTE);
+    await page.waitForLoadState("domcontentloaded");
+  });
+
+  test("no unhandled app console errors (excluding font/network)", async ({
+    page,
+  }) => {
+    const errors: string[] = [];
+    page.on("console", (msg) => {
+      if (msg.type() === "error") {
+        const t = msg.text();
+        if (t.includes("fonts.gstatic.com") || t.includes("favicon")) return;
+        errors.push(t);
+      }
+    });
+    await page.goto(ROUTE);
+    await expect.poll(() => errors, { timeout: 2000 }).toEqual([]);
+  });
+
+  test("has expected document title", async ({ page }) => {
+    await expect(page).toHaveTitle(/Current/);
+  });
+
+  test("h1 is visible", async ({ page }) => {
+    await expect(
+      page.getByRole("heading", { name: /forgot your password/i, level: 1 }),
+    ).toBeVisible();
+  });
+
+  test("renders within 3s", async ({ page }) => {
+    const start = Date.now();
+    await page.goto(ROUTE, { waitUntil: "domcontentloaded" });
+    expect(Date.now() - start).toBeLessThan(3000);
+  });
+
+  test("layout images resolve", async ({ page }) => {
+    const assets = page.locator("img, svg");
+    const count = await assets.count();
+    for (let i = 0; i < count; i++) {
+      const box = await assets.nth(i).evaluate((el) => {
+        if (el instanceof HTMLImageElement) {
+          return { w: el.naturalWidth, h: el.naturalHeight };
+        }
+        const b = (el as SVGElement).getBoundingClientRect();
+        return { w: b.width, h: b.height };
+      });
+      expect((box as { w: number }).w).toBeGreaterThan(0);
+    }
+  });
+});

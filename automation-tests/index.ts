@@ -1,3 +1,11 @@
+import "./pages/ForgotPasswordPage.accessibility.spec";
+import "./pages/ForgotPasswordPage.api.spec";
+import "./pages/ForgotPasswordPage.edge.spec";
+import "./pages/ForgotPasswordPage.error.spec";
+import "./pages/ForgotPasswordPage.form.spec";
+import "./pages/ForgotPasswordPage.mobile.spec";
+import "./pages/ForgotPasswordPage.smoke.spec";
+import "./pages/ForgotPasswordPage.ui.spec";
 import "./pages/LoginPage.accessibility.spec";
 import "./pages/LoginPage.api.spec";
 import "./pages/LoginPage.error.spec";

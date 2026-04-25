@@ -1,0 +1,8 @@
+node_modules
+dist
+app/dist
+.DS_Store
+playwright-report
+test-results
+.env
+.env.*.local

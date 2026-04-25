@@ -6,7 +6,7 @@ test.describe("Login (set new password) — Edge Cases", () => {
     await page.goto("/login");
     await page.getByTestId("return-to-login").click();
     await expect(page).toHaveURL(/\/sign-in$/);
-    await expect(page.getByRole("heading", { name: /sign in/i })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: /^login$/i })).toBeVisible();
   });
 
   test("browser back returns to login screen", async ({ page }) => {

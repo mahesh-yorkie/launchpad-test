@@ -6,7 +6,7 @@ test.describe("Forgot password — Edge Cases", () => {
     await page.goto("/forgot-password");
     await page.getByTestId("forgot-return-to-login").click();
     await expect(page).toHaveURL(/\/sign-in$/);
-    await expect(page.getByRole("heading", { name: /sign in/i })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: /^login$/i })).toBeVisible();
   });
 
   test("browser back returns to forgot password screen", async ({ page }) => {
@@ -47,6 +47,6 @@ test.describe("Forgot password — Edge Cases", () => {
 
   test("sign-in exposes forgot password entry point", async ({ page }) => {
     await page.goto("/sign-in");
-    await expect(page.getByTestId("go-to-forgot-password")).toBeVisible();
+    await expect(page.getByTestId("sign-in-forgot-password")).toBeVisible();
   });
 });

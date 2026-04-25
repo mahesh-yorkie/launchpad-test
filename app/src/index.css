@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 187 55% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 187 55% 42%;
+
+    --success: 152 69% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --sidebar: 200 62% 12%;
+    --sidebar-foreground: 0 0% 100%;
+
+    --auth-shell: 210 36% 96%;
+    --auth-card-border: 214 32% 91%;
+    --auth-min-height: 898px;
+    --auth-sidebar-width: 480px;
+    --auth-card-max-width: 480px;
+    --auth-card-padding: 40px;
+    --auth-field-stack: 24px;
+    --auth-rule-gap: 12px;
+    --auth-title-size: 1.75rem;
+    --auth-title-leading: 2.125rem;
+    --auth-lead-size: 0.875rem;
+    --auth-lead-leading: 1.375rem;
+    --shadow-auth: 0 24px 48px hsl(215 28% 17% / 0.08);
+
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+}
+
+@layer components {
+  .auth-min-shell {
+    min-height: max(100vh, var(--auth-min-height));
+  }
+
+  .auth-sidebar-surface {
+    background-color: hsl(var(--sidebar));
+    background-image:
+      radial-gradient(circle at 18% 18%, hsl(187 55% 42% / 0.28), transparent 55%),
+      radial-gradient(circle at 82% 8%, hsl(200 80% 46% / 0.35), transparent 48%),
+      linear-gradient(135deg, hsl(204 65% 10%), hsl(202 70% 16%) 52%, hsl(198 58% 20%) 100%);
+    background-size: cover;
+  }
+}

@@ -37,4 +37,10 @@ test.describe('Login screen', () => {
     await page.goto('/#new-password')
     await expect(page.getByTestId('new-password-page')).toBeVisible()
   })
+
+  test('forgot password link goes to forgot-password screen', async ({ page }) => {
+    await page.getByTestId('link-forgot-password').click()
+    await expect(page).toHaveURL(/#forgot-password/)
+    await expect(page.getByTestId('forgot-password-page')).toBeVisible()
+  })
 })

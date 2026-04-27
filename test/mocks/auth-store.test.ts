@@ -2,8 +2,10 @@ import { describe, expect, it } from 'vitest'
 
 import {
   getLastForgotPasswordEmail,
+  getLastLoginEmail,
   getLastSetPasswordSubmission,
   recordForgotPasswordEmail,
+  recordLoginEmail,
   recordSetPasswordSubmission,
   resetAuthStore,
 } from '@/mocks/store/auth-store'
@@ -12,6 +14,8 @@ describe('auth store', () => {
   it('starts with no recorded submission', () => {
     resetAuthStore()
     expect(getLastSetPasswordSubmission()).toBeNull()
+    expect(getLastForgotPasswordEmail()).toBeNull()
+    expect(getLastLoginEmail()).toBeNull()
   })
 
   it('records the latest submission payload', () => {
@@ -46,5 +50,19 @@ describe('auth store', () => {
     resetAuthStore()
 
     expect(getLastForgotPasswordEmail()).toBeNull()
+  })
+
+  it('records the latest login email', () => {
+    resetAuthStore()
+    recordLoginEmail('john.doe@testmail.com')
+
+    expect(getLastLoginEmail()).toBe('john.doe@testmail.com')
+  })
+
+  it('clears login email when resetAuthStore runs', () => {
+    recordLoginEmail('john.doe@testmail.com')
+    resetAuthStore()
+
+    expect(getLastLoginEmail()).toBeNull()
   })
 })

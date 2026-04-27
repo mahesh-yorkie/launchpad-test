@@ -1,7 +1,9 @@
 import { http, HttpResponse } from 'msw'
 
+import { PROTOTYPE_VALID_LOGIN } from '@/mocks/data/auth-login'
 import {
   recordForgotPasswordEmail,
+  recordLoginEmail,
   recordSetPasswordSubmission,
 } from '@/mocks/store/auth-store'
 
@@ -15,6 +17,45 @@ async function randomDelay() {
 }
 
 export const authHandlers = [
+  http.post('/api/auth/login', async ({ request }) => {
+    await randomDelay()
+    const mode = readMockError()
+    if (mode === 'login-500') {
+      return HttpResponse.json({ message: 'Unexpected server error' }, { status: 500 })
+    }
+    if (mode === 'login-404') {
+      return HttpResponse.json({ message: 'Account not found' }, { status: 404 })
+    }
+    if (mode === 'login-409') {
+      return HttpResponse.json({ message: 'Account locked' }, { status: 409 })
+    }
+    if (mode === 'login-422') {
+      return HttpResponse.json({ message: 'Invalid payload' }, { status: 422 })
+    }
+    const body = (await request.json().catch(() => null)) as {
+      email?: string
+      password?: string
+    } | null
+    if (!body || typeof body.email !== 'string' || typeof body.password !== 'string') {
+      return HttpResponse.json({ message: 'Invalid payload' }, { status: 422 })
+    }
+    const email = body.email.trim()
+    const password = body.password.trim()
+    if (!email || !password) {
+      return HttpResponse.json({ message: 'Email and password are required' }, { status: 422 })
+    }
+    if (mode === 'login-401') {
+      return HttpResponse.json({ message: 'Invalid credentials' }, { status: 401 })
+    }
+    if (
+      email !== PROTOTYPE_VALID_LOGIN.email ||
+      password !== PROTOTYPE_VALID_LOGIN.password
+    ) {
+      return HttpResponse.json({ message: 'Invalid credentials' }, { status: 401 })
+    }
+    recordLoginEmail(email)
+    return HttpResponse.json({ ok: true, email })
+  }),
   http.post('/api/auth/forgot-password', async ({ request }) => {
     await randomDelay()
     const mode = readMockError()

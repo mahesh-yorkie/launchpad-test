@@ -4,14 +4,16 @@ import { ROUTES } from '@/const/routes'
 import { ForgotPasswordPage } from '@/pages/auth/ForgotPasswordPage'
 import { LoginPage } from '@/pages/auth/LoginPage'
 import { NewPasswordPage } from '@/pages/auth/NewPasswordPage'
+import { DashboardPage } from '@/pages/DashboardPage'
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate replace to={ROUTES.newPassword} />} />
+      <Route path="/" element={<Navigate replace to={ROUTES.login} />} />
       <Route path={ROUTES.newPassword} element={<NewPasswordPage />} />
       <Route path={ROUTES.forgotPassword} element={<ForgotPasswordPage />} />
       <Route path={ROUTES.login} element={<LoginPage />} />
+      <Route path={ROUTES.dashboard} element={<DashboardPage />} />
     </Routes>
   )
 }

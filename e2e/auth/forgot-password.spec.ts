@@ -31,7 +31,7 @@ test.describe('ForgotPassword — reset request flow', () => {
       await page.getByRole('button', { name: FORGOT_PASSWORD_COPY.submit }).click()
 
       await expect(page).toHaveURL(new RegExp(`${ROUTES.login}$`))
-      await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible()
+      await expect(page.getByRole('heading', { name: 'Login' })).toBeVisible()
     })
 
     test('navigates back to the login screen from the return link', async ({

@@ -85,7 +85,7 @@ describe('NewPasswordPage', () => {
       await waitFor(() =>
         expect(router.state.location.pathname).toBe(ROUTES.login),
       )
-      expect(screen.getByRole('heading', { name: 'Sign in' })).toBeVisible()
+      expect(screen.getByRole('heading', { name: 'Login' })).toBeVisible()
       expect(getLastSetPasswordSubmission()?.password).toBe(VALID_NEW_PASSWORD)
     })
 

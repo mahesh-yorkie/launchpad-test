@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 
 test.describe('New password screen', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/#new-password')
   })
 
   test('renders all primary sections and copy', async ({ page }) => {
@@ -14,10 +14,10 @@ test.describe('New password screen', () => {
     await expect(page.getByTestId('new-password-subtitle')).toContainText(
       'previously used passwords',
     )
-    await expect(page.getByTestId('input-password')).toBeVisible()
+    await expect(page.getByTestId('input-new-password')).toBeVisible()
     await expect(page.getByTestId('input-confirm')).toBeVisible()
     await expect(page.getByTestId('toggle-confirm-visibility')).toBeVisible()
-    await expect(page.getByTestId('submit-login')).toContainText('Login')
+    await expect(page.getByTestId('submit-new-password')).toContainText('Login')
     await expect(
       page.getByTestId('back-to-login'),
     ).toContainText('Return to the login screen')
@@ -26,7 +26,7 @@ test.describe('New password screen', () => {
   test('requirement list reflects password strength in real time', async ({
     page,
   }) => {
-    const pwd = page.getByTestId('input-password')
+    const pwd = page.getByTestId('input-new-password')
     await expect(page.getByTestId('req-min8')).toHaveAttribute('data-state', 'fail')
     await pwd.fill('Abcde1!x')
     await expect(page.getByTestId('req-min8')).toHaveAttribute('data-state', 'pass')

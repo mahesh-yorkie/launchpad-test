@@ -4,6 +4,7 @@ export type SetPasswordPayload = {
 }
 
 let lastSubmission: SetPasswordPayload | null = null
+let lastForgotPasswordEmail: string | null = null
 
 export function getLastSetPasswordSubmission() {
   return lastSubmission
@@ -13,6 +14,15 @@ export function recordSetPasswordSubmission(payload: SetPasswordPayload) {
   lastSubmission = payload
 }
 
+export function getLastForgotPasswordEmail() {
+  return lastForgotPasswordEmail
+}
+
+export function recordForgotPasswordEmail(email: string) {
+  lastForgotPasswordEmail = email
+}
+
 export function resetAuthStore() {
   lastSubmission = null
+  lastForgotPasswordEmail = null
 }

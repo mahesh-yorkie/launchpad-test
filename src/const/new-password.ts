@@ -1,4 +1,7 @@
+import { AUTH_BRANDING_COPY } from '@/const/auth-branding'
+
 export const NEW_PASSWORD_COPY = {
+  ...AUTH_BRANDING_COPY,
   title: 'Set your new password',
   description:
     'Ensure that your new password differs from previously used passwords.',
@@ -10,10 +13,4 @@ export const NEW_PASSWORD_COPY = {
   requirementSpecial: 'At least 1 special character',
   submit: 'Login',
   backToLogin: '← Return to the login screen',
-  brandName: 'CURRENT',
-  marketingHeading: 'Track, Schedule, and Optimize Your Pool Services',
-  marketingBody:
-    'Effortlessly track every aspect of your services, from client appointments to job progress, ensuring that no detail is overlooked.',
-  copyright: '© 2024 Current',
-  privacy: 'Privacy',
 } as const

@@ -1,21 +1,13 @@
-import {
-  CheckCircle2,
-  Eye,
-  EyeOff,
-  LogIn,
-  Waves,
-  XCircle,
-} from 'lucide-react'
+import { CheckCircle2, Eye, EyeOff, LogIn, XCircle } from 'lucide-react'
 import { type FormEvent, useId, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { AuthBrandedAside } from '@/components/common/AuthBrandedAside'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { NEW_PASSWORD_COPY } from '@/const/new-password'
 import { ROUTES } from '@/const/routes'
-
-import brandPanel from '@/assets/new-password-brand-panel.png'
 
 function usePasswordRules(password: string) {
   return useMemo(
@@ -94,49 +86,7 @@ export function NewPasswordPage() {
 
   return (
     <div className="mx-auto grid min-h-[100svh] w-full max-w-screen-xl grid-cols-1 lg:min-h-[898px] lg:grid-cols-[minmax(0,480px)_minmax(0,1fr)]">
-      <aside
-        className="relative order-2 flex min-h-[320px] flex-col justify-between gap-10 overflow-hidden px-6 py-8 text-white md:min-h-[420px] md:px-8 md:py-10 lg:order-1 lg:min-h-0 lg:px-10 lg:py-12"
-        aria-label="Brand"
-      >
-        <img
-          src={brandPanel}
-          alt=""
-          className="pointer-events-none absolute inset-0 size-full object-cover"
-        />
-        <div
-          className="absolute inset-0 bg-foreground/35"
-          aria-hidden="true"
-        />
-        <div className="relative z-10 flex items-center gap-3">
-          <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-white/35 bg-white/10 md:size-12">
-            <Waves aria-hidden className="size-6 text-white" strokeWidth={1.75} />
-          </span>
-          <span className="text-lg font-semibold tracking-[0.12em] md:text-xl">
-            {NEW_PASSWORD_COPY.brandName}
-          </span>
-        </div>
-        <div className="relative z-10 flex flex-1 flex-col justify-center gap-4 md:gap-5">
-          <h1 className="text-balance text-2xl font-semibold leading-tight md:text-3xl lg:text-[32px] lg:leading-[40px]">
-            {NEW_PASSWORD_COPY.marketingHeading}
-          </h1>
-          <p className="max-w-[420px] text-pretty text-sm leading-relaxed text-white/90 md:text-base lg:text-[16px] lg:leading-[26px]">
-            {NEW_PASSWORD_COPY.marketingBody}
-          </p>
-        </div>
-        <footer className="relative z-10 flex flex-wrap items-center justify-between gap-3 text-xs text-white/80 md:text-sm">
-          <span>{NEW_PASSWORD_COPY.copyright}</span>
-          <a
-            href="#privacy-notice"
-            className="inline-flex min-h-[44px] items-center rounded-sm px-2 underline-offset-4 hover:underline sm:min-h-0 sm:px-0"
-          >
-            {NEW_PASSWORD_COPY.privacy}
-          </a>
-        </footer>
-        <div id="privacy-notice" className="sr-only" tabIndex={-1}>
-          Privacy details are not part of this prototype; this anchor keeps the
-          control keyboard-accessible without leaving the screen.
-        </div>
-      </aside>
+      <AuthBrandedAside />
 
       <main className="order-1 flex items-center justify-center bg-background px-4 py-10 md:px-6 md:py-12 lg:order-2 lg:px-[40px] lg:py-[48px]">
         <div className="w-full max-w-[480px] rounded-[var(--radius)] border border-border bg-card p-6 shadow-sm sm:p-8 md:p-10">

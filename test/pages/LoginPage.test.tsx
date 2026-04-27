@@ -19,6 +19,10 @@ describe('LoginPage', () => {
     render(<RouterProvider router={router} />)
 
     expect(screen.getByRole('heading', { name: 'Sign in' })).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Forgot password' })).toHaveAttribute(
+      'href',
+      ROUTES.forgotPassword,
+    )
     expect(
       screen.getByRole('link', { name: 'Go to new password' }),
     ).toHaveAttribute('href', ROUTES.newPassword)
